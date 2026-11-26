@@ -1,9 +1,9 @@
 
 from flask import Flask, render_template
 from flask_login import LoginManager
-from sqlalchemy import URL
 
 from models import db
+from config import Config
 
 # Import database models
 from models.user import User
@@ -16,7 +16,6 @@ from models.department import Department
 from models.assignment import Assignment
 from models.notice import Notice
 from models.timetable import Timetable
-
 
 # Import routes
 from routes.auth import auth
@@ -34,26 +33,11 @@ from routes.student_portal import student_portal
 from routes.faculty_portal import faculty_portal
 
 
-
+# Create Flask application
 app = Flask(__name__)
 
-# Application settings
-app.config["SECRET_KEY"] = "departmental-erp-secret-key"
-
-# MySQL connection
-# Replace YOUR_MYSQL_PASSWORD with your actual MySQL root password.
-database_url = URL.create(
-    drivername="mysql+pymysql",
-    username="root",
-    password="Akriti",
-    host="localhost",
-    port=3306,
-    database="departmental_erp"
-)
-
-app.config["SQLALCHEMY_DATABASE_URI"] = database_url
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-
+# Load configuration from config.py
+app.config.from_object(Config)
 
 # Connect SQLAlchemy
 db.init_app(app)
