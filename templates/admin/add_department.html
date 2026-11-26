@@ -1,0 +1,82 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Department</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f2f4f8;
+            padding: 30px;
+        }
+
+        .container {
+            background: white;
+            max-width: 600px;
+            margin: auto;
+            padding: 25px;
+            border-radius: 10px;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0 15px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background: #2563eb;
+            color: white;
+            padding: 12px;
+            border: none;
+            width: 100%;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h2>Add New Department</h2>
+
+    {% with messages = get_flashed_messages() %}
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    {% endwith %}
+
+    <form method="POST">
+
+        <label>Department Code *</label>
+        <input type="text" name="department_code" required>
+
+        <label>Department Name *</label>
+        <input type="text" name="department_name" required>
+
+        <label>Head of Department</label>
+        <input type="text" name="hod">
+
+        <label>Description</label>
+        <textarea name="description"></textarea>
+
+        <label>Status</label>
+        <select name="status">
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+        </select>
+
+        <button type="submit">Save Department</button>
+
+    </form>
+
+    <br>
+    <a href="{{ url_for('department.view_departments') }}">
+        View Departments
+    </a>
+
+</div>
+
+</body>
+</html>

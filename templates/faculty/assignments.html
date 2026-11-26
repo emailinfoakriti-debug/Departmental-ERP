@@ -1,0 +1,88 @@
+
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container" style="max-width:1000px; margin:30px auto; padding:20px;">
+
+    <h2>Faculty Assignment Management</h2>
+    <p>Welcome, {{ faculty.name }}</p>
+
+    {% with messages = get_flashed_messages() %}
+        {% for message in messages %}
+            <p style="color:green;">{{ message }}</p>
+        {% endfor %}
+    {% endwith %}
+
+    <div style="background:white; padding:25px; border-radius:10px;">
+
+        <h3>Create New Assignment</h3>
+
+        <form method="POST">
+
+            <label>Assignment Title</label>
+            <input type="text" name="title" required
+                   style="width:100%; padding:10px; margin:10px 0;">
+
+            <label>Description</label>
+            <textarea name="description"
+                      style="width:100%; padding:10px; margin:10px 0;"></textarea>
+
+            <label>Subject</label>
+            <select name="subject_id" required
+                    style="width:100%; padding:10px; margin:10px 0;">
+                <option value="">Select Subject</option>
+                {% for subject in subjects %}
+                <option value="{{ subject.id }}">
+                    {{ subject.subject_code }} - {{ subject.subject_name }}
+                </option>
+                {% endfor %}
+            </select>
+
+            <label>Due Date</label>
+            <input type="date" name="due_date" required
+                   style="width:100%; padding:10px; margin:10px 0;">
+
+            <label>Total Marks</label>
+            <input type="number" name="total_marks"
+                   min="1" step="0.01" value="100"
+                   style="width:100%; padding:10px; margin:10px 0;">
+
+            <button type="submit"
+                    style="background:#2563eb; color:white; padding:12px 25px; border:none; border-radius:5px;">
+                Create Assignment
+            </button>
+
+        </form>
+    </div>
+
+    <h3 style="margin-top:30px;">Created Assignments</h3>
+
+    {% if assignments %}
+    <table border="1" cellpadding="10" cellspacing="0" width="100%">
+        <tr>
+            <th>Title</th>
+            <th>Subject ID</th>
+            <th>Due Date</th>
+            <th>Total Marks</th>
+        </tr>
+
+        {% for item in assignments %}
+        {% if item.faculty_name == faculty.name %}
+        <tr>
+            <td>{{ item.title }}</td>
+            <td>{{ item.subject_id }}</td>
+            <td>{{ item.due_date.strftime('%d-%m-%Y') }}</td>
+            <td>{{ item.total_marks }}</td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+    </table>
+    {% else %}
+    <p>No assignments created yet.</p>
+    {% endif %}
+
+    <br>
+    <a href="{{ url_for('faculty_portal.dashboard') }}">Back to Dashboard</a>
+
+</div>
+{% endblock %}

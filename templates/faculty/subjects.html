@@ -1,0 +1,48 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container" style="padding:25px;">
+
+    <h2>My Assigned Subjects</h2>
+
+    <p>Welcome, {{ faculty.name }}</p>
+
+    {% if subjects %}
+
+    <table border="1" cellpadding="12" cellspacing="0" width="100%">
+
+        <tr>
+            <th>Subject Code</th>
+            <th>Subject Name</th>
+            <th>Semester</th>
+            <th>Credits</th>
+        </tr>
+
+        {% for subject in subjects %}
+        <tr>
+            <td>{{ subject.subject_code }}</td>
+            <td>{{ subject.subject_name }}</td>
+            <td>{{ subject.semester }}</td>
+            <td>{{ subject.credits }}</td>
+        </tr>
+        {% endfor %}
+
+    </table>
+
+    {% else %}
+
+    <p>No subjects are currently assigned to your department.</p>
+
+    {% endif %}
+
+    <br>
+
+    <a href="{{ url_for('faculty_portal.dashboard') }}">
+        Back to Faculty Dashboard
+    </a>
+
+</div>
+
+{% endblock %}

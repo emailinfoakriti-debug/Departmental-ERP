@@ -1,0 +1,59 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Edit Attendance</h2>
+
+<form method="POST">
+
+    <label>Student</label>
+    <select name="student_id" required>
+        {% for s in students %}
+        <option value="{{ s.id }}"
+        {% if record.student_id == s.id %}selected{% endif %}>
+            {{ s.student_id }} - {{ s.name }}
+        </option>
+        {% endfor %}
+    </select>
+
+    <br><br>
+
+    <label>Subject</label>
+    <select name="subject_id" required>
+        {% for s in subjects %}
+        <option value="{{ s.id }}"
+        {% if record.subject_id == s.id %}selected{% endif %}>
+            {{ s.subject_code }} - {{ s.subject_name }}
+        </option>
+        {% endfor %}
+    </select>
+
+    <br><br>
+
+    <label>Date</label>
+    <input type="date" name="date"
+           value="{{ record.date.strftime('%Y-%m-%d') }}" required>
+
+    <br><br>
+
+    <label>Status</label>
+    <select name="status" required>
+        <option value="Present" {% if record.status == "Present" %}selected{% endif %}>Present</option>
+        <option value="Absent" {% if record.status == "Absent" %}selected{% endif %}>Absent</option>
+        <option value="Late" {% if record.status == "Late" %}selected{% endif %}>Late</option>
+    </select>
+
+    <br><br>
+
+    <label>Remarks</label>
+    <input type="text" name="remarks"
+           value="{{ record.remarks or '' }}">
+
+    <br><br>
+
+    <button type="submit">Update Attendance</button>
+
+</form>
+
+{% endblock %}

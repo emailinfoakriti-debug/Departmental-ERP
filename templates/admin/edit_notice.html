@@ -1,0 +1,51 @@
+
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Edit Notice</h2>
+
+<form method="POST">
+
+    <label>Notice Title</label>
+    <input type="text" name="title"
+           value="{{ record.title }}" required>
+
+    <br><br>
+
+    <label>Description</label>
+    <textarea name="description" required>{{ record.description }}</textarea>
+
+    <br><br>
+
+    <label>Category</label>
+    <select name="category">
+        {% for c in ['General', 'Examination', 'Event', 'Holiday', 'Academic'] %}
+        <option value="{{ c }}"
+            {% if record.category == c %}selected{% endif %}>
+            {{ c }}
+        </option>
+        {% endfor %}
+    </select>
+
+    <br><br>
+
+    <label>Publish Date</label>
+    <input type="date" name="publish_date"
+           value="{{ record.publish_date.strftime('%Y-%m-%d') }}"
+           required>
+
+    <br><br>
+
+    <label>Expiry Date</label>
+    <input type="date" name="expiry_date"
+           value="{{ record.expiry_date.strftime('%Y-%m-%d') if record.expiry_date else '' }}">
+
+    <br><br>
+
+    <button type="submit">Update Notice</button>
+
+    <a href="{{ url_for('notices.view_notices') }}">Cancel</a>
+
+</form>
+
+{% endblock %}

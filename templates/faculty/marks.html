@@ -1,0 +1,75 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container" style="max-width:1000px; margin:30px auto; padding:20px;">
+
+    <h2>Faculty Marks Management</h2>
+    <p>Welcome, {{ faculty.name }}</p>
+
+    {% with messages = get_flashed_messages() %}
+        {% for message in messages %}
+            <p style="color:green;">{{ message }}</p>
+        {% endfor %}
+    {% endwith %}
+
+    <div style="background:white; padding:25px; border-radius:10px;">
+
+        <form method="POST">
+
+            <label>Student</label>
+            <select name="student_id" required style="width:100%; padding:10px; margin:10px 0;">
+                <option value="">Select Student</option>
+                {% for student in students %}
+                <option value="{{ student.id }}">
+                    {{ student.student_id }} - {{ student.name }}
+                </option>
+                {% endfor %}
+            </select>
+
+            <label>Subject</label>
+            <select name="subject_id" required style="width:100%; padding:10px; margin:10px 0;">
+                <option value="">Select Subject</option>
+                {% for subject in subjects %}
+                <option value="{{ subject.id }}">
+                    {{ subject.subject_code }} - {{ subject.subject_name }}
+                </option>
+                {% endfor %}
+            </select>
+
+            <label>Exam Name</label>
+            <input type="text" name="exam_name" required
+                   placeholder="Example: Internal Test 1"
+                   style="width:100%; padding:10px; margin:10px 0;">
+
+            <label>Assignment Marks</label>
+            <input type="number" step="0.01" min="0"
+                   name="assignment_marks"
+                   style="width:100%; padding:10px; margin:10px 0;">
+
+            <label>Internal Marks</label>
+            <input type="number" step="0.01" min="0"
+                   name="internal_marks"
+                   style="width:100%; padding:10px; margin:10px 0;">
+
+            <label>Practical Marks</label>
+            <input type="number" step="0.01" min="0"
+                   name="practical_marks"
+                   style="width:100%; padding:10px; margin:10px 0;">
+
+            <button type="submit"
+                    style="background:#2563eb; color:white; padding:12px 25px; border:none; border-radius:5px;">
+                Save Marks
+            </button>
+
+        </form>
+
+    </div>
+
+    <br>
+    <a href="{{ url_for('faculty_portal.dashboard') }}">Back to Dashboard</a>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,57 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Subject Management</h2>
+
+<a href="{{ url_for('subjects.add_subject') }}">Add New Subject</a>
+
+<br><br>
+
+<table border="1" cellpadding="10">
+
+    <tr>
+        <th>ID</th>
+        <th>Subject Code</th>
+        <th>Subject Name</th>
+        <th>Semester</th>
+        <th>Credits</th>
+        <th>Department</th>
+        <th>Actions</th>
+    </tr>
+
+    {% for s in subjects %}
+    <tr>
+        <td>{{ s.id }}</td>
+        <td>{{ s.subject_code }}</td>
+        <td>{{ s.subject_name }}</td>
+        <td>{{ s.semester }}</td>
+        <td>{{ s.credits }}</td>
+        <td>{{ s.department_id or "Not assigned" }}</td>
+
+        <td>
+            <a href="{{ url_for('subjects.edit_subject', id=s.id) }}">
+                Edit
+            </a>
+
+            <form method="POST"
+                  action="{{ url_for('subjects.delete_subject', id=s.id) }}"
+                  onsubmit="return confirm('Are you sure you want to delete this subject?');"
+                  style="display:inline;">
+
+                <button type="submit">Delete</button>
+
+            </form>
+        </td>
+    </tr>
+
+    {% else %}
+    <tr>
+        <td colspan="7">No subjects added yet.</td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+{% endblock %}

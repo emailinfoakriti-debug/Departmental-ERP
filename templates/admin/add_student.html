@@ -1,0 +1,98 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Student</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f2f4f8;
+            padding: 30px;
+        }
+        .container {
+            background: white;
+            max-width: 600px;
+            margin: auto;
+            padding: 25px;
+            border-radius: 10px;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0 15px;
+            box-sizing: border-box;
+        }
+        button {
+            background: #2563eb;
+            color: white;
+            padding: 12px;
+            border: none;
+            width: 100%;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h2>Add New Student</h2>
+
+    {% with messages = get_flashed_messages() %}
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    {% endwith %}
+
+    <form method="POST">
+
+        <label>Student ID *</label>
+        <input type="text" name="student_id" required>
+
+        <label>Roll Number *</label>
+        <input type="text" name="roll_no" required>
+
+        <label>Student Name *</label>
+        <input type="text" name="name" required>
+
+        <label>Email *</label>
+        <input type="email" name="email" required>
+
+<label>Student Login Password</label>
+<input
+    type="password"
+    name="password"
+    minlength="8"
+    placeholder="Enter temporary password"
+    required
+>
+
+
+        <label>Phone</label>
+        <input type="text" name="phone">
+
+        <label>Course</label>
+        <input type="text" name="course">
+
+        <label>Semester</label>
+        <select name="semester">
+            <option value="">Select Semester</option>
+            {% for i in range(1, 9) %}
+                <option value="{{ i }}">Semester {{ i }}</option>
+            {% endfor %}
+        </select>
+
+        <label>Section</label>
+        <input type="text" name="section">
+
+        <button type="submit">Save Student</button>
+
+    </form>
+
+    <br>
+    <a href="{{ url_for('students.view_students') }}">View Students</a>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,57 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Edit Subject</h2>
+
+<form method="POST">
+
+    <label>Subject Code</label>
+    <input type="text" name="subject_code"
+           value="{{ subject.subject_code }}" required>
+
+    <br><br>
+
+    <label>Subject Name</label>
+    <input type="text" name="subject_name"
+           value="{{ subject.subject_name }}" required>
+
+    <br><br>
+
+    <label>Semester</label>
+    <select name="semester" required>
+        {% for s in range(1, 9) %}
+        <option value="{{ s }}"
+        {% if subject.semester == s %}selected{% endif %}>
+            {{ s }}
+        </option>
+        {% endfor %}
+    </select>
+
+    <br><br>
+
+    <label>Credits</label>
+    <input type="number" name="credits"
+           value="{{ subject.credits }}" min="1" required>
+
+    <br><br>
+
+    <label>Department</label>
+    <select name="department_id">
+        <option value="">Select Department</option>
+        {% for d in departments %}
+        <option value="{{ d.id }}"
+        {% if subject.department_id == d.id %}selected{% endif %}>
+            {{ d.department_name }}
+        </option>
+        {% endfor %}
+    </select>
+
+    <br><br>
+
+    <button type="submit">Update Subject</button>
+
+</form>
+
+{% endblock %}

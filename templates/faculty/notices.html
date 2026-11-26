@@ -1,0 +1,50 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container" style="max-width:1000px; margin:30px auto; padding:20px;">
+
+    <h2>College Notices</h2>
+    <p>Welcome, {{ faculty.name }}</p>
+
+    {% if notices %}
+    {% for notice in notices %}
+
+    <div style="background:white; padding:20px; margin:15px 0;
+                border-radius:10px; box-shadow:0 2px 8px #ddd;">
+
+        <h3>{{ notice.title }}</h3>
+
+        <p>{{ notice.description }}</p>
+
+        <p><strong>Category:</strong>
+            {{ notice.category or 'General' }}
+        </p>
+
+        <p><strong>Published:</strong>
+            {{ notice.publish_date.strftime('%d-%m-%Y') }}
+        </p>
+
+        {% if notice.expiry_date %}
+        <p><strong>Expiry:</strong>
+            {{ notice.expiry_date.strftime('%d-%m-%Y') }}
+        </p>
+        {% endif %}
+
+    </div>
+
+    {% endfor %}
+    {% else %}
+    <p>No notices available.</p>
+    {% endif %}
+
+    <br>
+
+    <a href="{{ url_for('faculty_portal.dashboard') }}">
+        Back to Dashboard
+    </a>
+
+</div>
+
+{% endblock %}

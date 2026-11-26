@@ -1,0 +1,57 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container" style="padding:25px;">
+
+    <h2>Student Attendance Records</h2>
+
+    <p>Faculty: {{ faculty.name }}</p>
+
+    {% if records %}
+
+    <div style="overflow-x:auto;">
+
+        <table border="1" cellpadding="12"
+               cellspacing="0" width="100%">
+
+            <tr>
+                <th>Student ID</th>
+                <th>Student Name</th>
+                <th>Subject ID</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Remarks</th>
+            </tr>
+
+            {% for record in records %}
+            <tr>
+                <td>{{ record.student.student_id if record.student else record.student_id }}</td>
+                <td>{{ record.student.name if record.student else 'N/A' }}</td>
+                <td>{{ record.subject_id }}</td>
+                <td>{{ record.date.strftime('%d-%m-%Y') }}</td>
+                <td>{{ record.status }}</td>
+                <td>{{ record.remarks or 'N/A' }}</td>
+            </tr>
+            {% endfor %}
+
+        </table>
+
+    </div>
+
+    {% else %}
+
+    <p>No attendance records available.</p>
+
+    {% endif %}
+
+    <br>
+
+    <a href="{{ url_for('faculty_portal.dashboard') }}">
+        Back to Faculty Dashboard
+    </a>
+
+</div>
+
+{% endblock %}

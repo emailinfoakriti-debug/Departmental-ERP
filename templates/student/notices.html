@@ -1,0 +1,98 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Notices | Departmental ERP</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f2f5fa;
+        }
+
+        .navbar {
+            background: #1f3c88;
+            color: white;
+            padding: 20px 35px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 35px auto;
+            padding: 25px;
+        }
+
+        h2 {
+            color: #1f3c88;
+        }
+
+        .notice-card {
+            background: white;
+            padding: 22px;
+            margin-bottom: 18px;
+            border-radius: 10px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+        }
+
+        .notice-card h3 {
+            color: #1f3c88;
+        }
+
+        .back {
+            display: inline-block;
+            padding: 11px 18px;
+            background: #1f3c88;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="navbar">
+        <h2 style="color:white;">Departmental ERP - Student Portal</h2>
+    </div>
+
+    <div class="container">
+
+        <h2>College Notices</h2>
+        <p>Welcome, {{ student.name }}</p>
+
+        {% for notice in notices_list %}
+
+        <div class="notice-card">
+            <h3>{{ notice.title }}</h3>
+
+            <p><b>Category:</b> {{ notice.category or "General" }}</p>
+
+            <p>{{ notice.description }}</p>
+
+            <p><b>Published:</b> {{ notice.publish_date }}</p>
+
+            {% if notice.expiry_date %}
+            <p><b>Expiry:</b> {{ notice.expiry_date }}</p>
+            {% endif %}
+        </div>
+
+        {% else %}
+
+        <div class="notice-card">
+            No notices available at the moment.
+        </div>
+
+        {% endfor %}
+
+        <a class="back"
+           href="{{ url_for('student_portal.dashboard') }}">
+            Back to Dashboard
+        </a>
+
+    </div>
+
+</body>
+</html>

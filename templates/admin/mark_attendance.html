@@ -1,0 +1,57 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Mark Student Attendance</h2>
+
+<form method="POST">
+
+    <label>Select Student</label>
+    <select name="student_id" required>
+        <option value="">Select Student</option>
+        {% for s in students %}
+        <option value="{{ s.id }}">
+            {{ s.student_id }} - {{ s.name }}
+        </option>
+        {% endfor %}
+    </select>
+
+    <br><br>
+
+    <label>Select Subject</label>
+    <select name="subject_id" required>
+        <option value="">Select Subject</option>
+        {% for s in subjects %}
+        <option value="{{ s.id }}">
+            {{ s.subject_code }} - {{ s.subject_name }}
+        </option>
+        {% endfor %}
+    </select>
+
+    <br><br>
+
+    <label>Date</label>
+    <input type="date" name="date" required>
+
+    <br><br>
+
+    <label>Status</label>
+    <select name="status" required>
+        <option value="Present">Present</option>
+        <option value="Absent">Absent</option>
+        <option value="Late">Late</option>
+    </select>
+
+    <br><br>
+
+    <label>Remarks</label>
+    <input type="text" name="remarks">
+
+    <br><br>
+
+    <button type="submit">Save Attendance</button>
+
+</form>
+
+{% endblock %}

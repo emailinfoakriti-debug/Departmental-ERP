@@ -1,0 +1,55 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container" style="padding: 25px;">
+
+    <h2>Student Assignments</h2>
+
+    <p>Welcome, {{ student.name }}</p>
+
+    {% if assignments_list %}
+
+    <div style="overflow-x: auto;">
+        <table border="1" cellpadding="12"
+               cellspacing="0" width="100%">
+
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Subject ID</th>
+                <th>Faculty</th>
+                <th>Due Date</th>
+                <th>Total Marks</th>
+            </tr>
+
+            {% for assignment in assignments_list %}
+            <tr>
+                <td>{{ assignment.title }}</td>
+                <td>{{ assignment.description or 'N/A' }}</td>
+                <td>{{ assignment.subject_id }}</td>
+                <td>{{ assignment.faculty_name or 'N/A' }}</td>
+                <td>{{ assignment.due_date.strftime('%d-%m-%Y') }}</td>
+                <td>{{ assignment.total_marks }}</td>
+            </tr>
+            {% endfor %}
+
+        </table>
+    </div>
+
+    {% else %}
+
+    <p>No assignments have been uploaded yet.</p>
+
+    {% endif %}
+
+    <br>
+
+    <a href="{{ url_for('student_portal.dashboard') }}">
+        Back to Dashboard
+    </a>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,85 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+    <h2>Add Timetable Entry</h2>
+
+    <form method="POST">
+
+        <label>Semester</label>
+        <select name="semester" required>
+            <option value="">Select Semester</option>
+            {% for sem in range(1, 9) %}
+            <option value="{{ sem }}">Semester {{ sem }}</option>
+            {% endfor %}
+        </select>
+
+        <br><br>
+
+        <label>Section</label>
+        <input type="text" name="section" placeholder="Example: A" required>
+
+        <br><br>
+
+        <label>Subject</label>
+        <select name="subject_id" required>
+            <option value="">Select Subject</option>
+            {% for subject in subjects %}
+            <option value="{{ subject.id }}">
+                {{ subject.subject_name }} ({{ subject.subject_code }})
+            </option>
+            {% endfor %}
+        </select>
+
+        <br><br>
+
+        <label>Faculty</label>
+        <select name="faculty_id" required>
+            <option value="">Select Faculty</option>
+            {% for faculty in faculties %}
+            <option value="{{ faculty.id }}">
+                {{ faculty.name }}
+            </option>
+            {% endfor %}
+        </select>
+
+        <br><br>
+
+        <label>Day</label>
+        <select name="day" required>
+            <option value="">Select Day</option>
+            <option>Monday</option>
+            <option>Tuesday</option>
+            <option>Wednesday</option>
+            <option>Thursday</option>
+            <option>Friday</option>
+            <option>Saturday</option>
+        </select>
+
+        <br><br>
+
+        <label>Start Time</label>
+        <input type="time" name="start_time" required>
+
+        <br><br>
+
+        <label>End Time</label>
+        <input type="time" name="end_time" required>
+
+        <br><br>
+
+        <label>Room Number</label>
+        <input type="text" name="room" placeholder="Example: Room 101">
+
+        <br><br>
+
+        <button type="submit">Save Timetable</button>
+
+        <a href="{{ url_for('timetable.view_timetable') }}">Cancel</a>
+
+    </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,84 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<div style="max-width:1200px; margin:30px auto; padding:20px;">
+
+    <div style="background:linear-gradient(120deg,#1e3a8a,#2563eb);
+                color:white; padding:30px; border-radius:15px;">
+
+        <h1>Faculty Dashboard</h1>
+        <h3>Welcome, {{ faculty.name }}!</h3>
+        <p>Departmental ERP Management System</p>
+
+    </div>
+
+    <!-- FACULTY PROFILE -->
+
+    <div style="background:white; padding:25px; margin-top:25px;
+                border-radius:12px; box-shadow:0 3px 12px #ddd;">
+
+        <h2>Faculty Profile</h2>
+
+        <p><strong>Faculty ID:</strong> {{ faculty.faculty_id }}</p>
+        <p><strong>Name:</strong> {{ faculty.name }}</p>
+        <p><strong>Email:</strong> {{ faculty.email }}</p>
+        <p><strong>Phone:</strong> {{ faculty.phone or 'N/A' }}</p>
+        <p><strong>Department:</strong> {{ faculty.department or 'N/A' }}</p>
+        <p><strong>Designation:</strong> {{ faculty.designation or 'N/A' }}</p>
+        <p><strong>Qualification:</strong> {{ faculty.qualification or 'N/A' }}</p>
+
+    </div>
+
+    <!-- MODULE CARDS -->
+
+    <h2 style="margin-top:30px;">Faculty Services</h2>
+
+    <div style="display:grid;
+                grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+                gap:20px;">
+
+        <div style="background:#e8f0fe;padding:25px;border-radius:12px;">
+            <h3>My Subjects</h3>
+            <p>View assigned subjects and semesters.</p>
+            <a href="{{ url_for('faculty_portal.my_subjects') }}">View Subjects →</a>
+        </div>
+
+        <div style="background:#e6f4ea;padding:25px;border-radius:12px;">
+            <h3>Attendance</h3>
+            <p>View student attendance records.</p>
+            <a href="{{ url_for('faculty_portal.attendance') }}">View Attendance →</a>
+        </div>
+
+        <div style="background:#fff3cd;padding:25px;border-radius:12px;">
+            <h3>Marks Management</h3>
+            <p>Enter and manage student marks.</p>
+            <a href="{{ url_for('faculty_portal.marks') }}">Manage Marks →</a>
+        </div>
+
+        <div style="background:#fce8e6;padding:25px;border-radius:12px;">
+            <h3>Assignments</h3>
+            <p>Create assignments for students.</p>
+            <a href="{{ url_for('faculty_portal.assignments') }}">Manage Assignments →</a>
+        </div>
+
+        <div style="background:#ede7f6;padding:25px;border-radius:12px;">
+            <h3>College Notices</h3>
+            <p>View important college announcements.</p>
+            <a href="{{ url_for('faculty_portal.notices') }}">View Notices →</a>
+        </div>
+
+    </div>
+
+    <div style="margin-top:30px;">
+        <a href="{{ url_for('auth.logout') }}"
+           style="background:#dc3545;color:white;padding:12px 25px;
+                  text-decoration:none;border-radius:7px;">
+            Logout
+        </a>
+    </div>
+
+</div>
+
+{% endblock %}

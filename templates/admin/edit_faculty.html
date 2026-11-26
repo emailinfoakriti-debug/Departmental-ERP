@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Faculty</title>
+</head>
+<body>
+
+<h2>Edit Faculty Details</h2>
+
+<form method="POST">
+
+    <label>Faculty ID</label>
+    <input type="text" name="faculty_id"
+           value="{{ member.faculty_id }}" required>
+    <br><br>
+
+    <label>Name</label>
+    <input type="text" name="name"
+           value="{{ member.name }}" required>
+    <br><br>
+
+    <label>Email</label>
+    <input type="email" name="email"
+           value="{{ member.email }}" required>
+    <br><br>
+
+    <label>Phone</label>
+    <input type="text" name="phone"
+           value="{{ member.phone or '' }}">
+    <br><br>
+
+    <label>Department</label>
+    <input type="text" name="department"
+           value="{{ member.department or '' }}">
+    <br><br>
+
+    <label>Designation</label>
+    <input type="text" name="designation"
+           value="{{ member.designation or '' }}">
+    <br><br>
+
+    <label>Qualification</label>
+    <input type="text" name="qualification"
+           value="{{ member.qualification or '' }}">
+    <br><br>
+
+    <button type="submit">Update Faculty</button>
+
+</form>
+
+<br>
+<a href="{{ url_for('faculty.view_faculty') }}">Back</a>
+
+</body>
+</html>

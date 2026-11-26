@@ -1,0 +1,89 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+    <h2>Edit Timetable Entry</h2>
+
+    <form method="POST">
+
+        <label>Semester</label>
+        <select name="semester" required>
+            {% for sem in range(1, 9) %}
+            <option value="{{ sem }}"
+                {% if entry.semester == sem %}selected{% endif %}>
+                Semester {{ sem }}
+            </option>
+            {% endfor %}
+        </select>
+
+        <br><br>
+
+        <label>Section</label>
+        <input type="text" name="section"
+               value="{{ entry.section }}" required>
+
+        <br><br>
+
+        <label>Subject</label>
+        <select name="subject_id" required>
+            {% for subject in subjects %}
+            <option value="{{ subject.id }}"
+                {% if entry.subject_id == subject.id %}selected{% endif %}>
+                {{ subject.subject_name }}
+            </option>
+            {% endfor %}
+        </select>
+
+        <br><br>
+
+        <label>Faculty</label>
+        <select name="faculty_id" required>
+            {% for faculty in faculties %}
+            <option value="{{ faculty.id }}"
+                {% if entry.faculty_id == faculty.id %}selected{% endif %}>
+                {{ faculty.name }}
+            </option>
+            {% endfor %}
+        </select>
+
+        <br><br>
+
+        <label>Day</label>
+        <select name="day" required>
+            {% for day in ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'] %}
+            <option value="{{ day }}"
+                {% if entry.day == day %}selected{% endif %}>
+                {{ day }}
+            </option>
+            {% endfor %}
+        </select>
+
+        <br><br>
+
+        <label>Start Time</label>
+        <input type="time" name="start_time"
+               value="{{ entry.start_time }}" required>
+
+        <br><br>
+
+        <label>End Time</label>
+        <input type="time" name="end_time"
+               value="{{ entry.end_time }}" required>
+
+        <br><br>
+
+        <label>Room Number</label>
+        <input type="text" name="room" value="{{ entry.room or '' }}">
+
+        <br><br>
+
+        <button type="submit">Update Timetable</button>
+
+        <a href="{{ url_for('timetable.view_timetable') }}">Cancel</a>
+
+    </form>
+</div>
+
+{% endblock %}

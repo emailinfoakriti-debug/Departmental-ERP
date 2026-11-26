@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Department</title>
+</head>
+<body>
+
+<h2>Edit Department Details</h2>
+
+{% with messages = get_flashed_messages() %}
+    {% for message in messages %}
+        <p>{{ message }}</p>
+    {% endfor %}
+{% endwith %}
+
+<form method="POST">
+
+    <label>Department Code</label>
+    <input type="text" name="department_code"
+           value="{{ dept.department_code }}" required>
+    <br><br>
+
+    <label>Department Name</label>
+    <input type="text" name="department_name"
+           value="{{ dept.department_name }}" required>
+    <br><br>
+
+    <label>HOD</label>
+    <input type="text" name="hod"
+           value="{{ dept.hod or '' }}">
+    <br><br>
+
+    <label>Description</label>
+    <textarea name="description">{{ dept.description or '' }}</textarea>
+    <br><br>
+
+    <label>Status</label>
+    <select name="status">
+        <option value="Active"
+            {% if dept.status == "Active" %}selected{% endif %}>
+            Active
+        </option>
+
+        <option value="Inactive"
+            {% if dept.status == "Inactive" %}selected{% endif %}>
+            Inactive
+        </option>
+    </select>
+    <br><br>
+
+    <button type="submit">Update Department</button>
+
+</form>
+
+<br>
+<a href="{{ url_for('department.view_departments') }}">Back</a>
+
+</body>
+</html>

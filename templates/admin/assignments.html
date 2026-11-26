@@ -1,0 +1,66 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Assignment Management</h2>
+
+<a href="{{ url_for('assignments.add_assignment') }}">
+    <button type="button">Add New Assignment</button>
+</a>
+
+<br><br>
+
+<table border="1" cellpadding="10" cellspacing="0">
+
+    <tr>
+        <th>ID</th>
+        <th>Assignment Title</th>
+        <th>Description</th>
+        <th>Subject ID</th>
+        <th>Faculty Name</th>
+        <th>Due Date</th>
+        <th>Total Marks</th>
+        <th>Actions</th>
+    </tr>
+
+    {% for a in records %}
+
+    <tr>
+        <td>{{ a.id }}</td>
+        <td>{{ a.title }}</td>
+        <td>{{ a.description }}</td>
+        <td>{{ a.subject_id }}</td>
+        <td>{{ a.faculty_name }}</td>
+        <td>{{ a.due_date }}</td>
+        <td>{{ a.total_marks }}</td>
+
+        <td>
+            <a href="{{ url_for('assignments.edit_assignment', id=a.id) }}">
+                Edit
+            </a>
+
+            |
+
+            <form method="POST"
+                  action="{{ url_for('assignments.delete_assignment', id=a.id) }}"
+                  style="display:inline;"
+                  onsubmit="return confirm('Are you sure you want to delete this assignment?');">
+
+                <button type="submit">Delete</button>
+
+            </form>
+        </td>
+    </tr>
+
+    {% else %}
+
+    <tr>
+        <td colspan="8">No assignments found.</td>
+    </tr>
+
+    {% endfor %}
+
+</table>
+
+{% endblock %}

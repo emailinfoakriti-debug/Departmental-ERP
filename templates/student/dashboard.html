@@ -1,0 +1,239 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Dashboard | Departmental ERP</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f2f5fa;
+            color: #333;
+        }
+
+        .navbar {
+            background: #1f3c88;
+            color: white;
+            padding: 20px 35px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .navbar h2 {
+            margin: 0;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            background: #e74c3c;
+            padding: 10px 18px;
+            border-radius: 5px;
+        }
+
+        .container {
+            padding: 35px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .welcome {
+            color: #1f3c88;
+            margin-bottom: 25px;
+        }
+
+        .profile {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+        }
+
+        .profile h2 {
+            color: #1f3c88;
+            margin-top: 0;
+        }
+
+        .profile p {
+            line-height: 1.8;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h3 {
+            color: #1f3c88;
+        }
+
+        .card p {
+            color: #666;
+        }
+
+        .card a {
+            display: inline-block;
+            margin-top: 10px;
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #777;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            .navbar {
+                padding: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="navbar">
+        <h2>Departmental ERP - Student Portal</h2>
+
+        <a href="{{ url_for('auth.logout') }}">
+            Logout
+        </a>
+    </div>
+
+    <div class="container">
+
+        <h1 class="welcome">
+            Welcome, {{ student.name }}!
+        </h1>
+
+        <!-- Student Profile -->
+
+        <div class="profile">
+
+            <h2>My Profile</h2>
+
+            <p>
+                <strong>Student ID:</strong>
+                {{ student.student_id }}
+            </p>
+
+            <p>
+                <strong>Roll Number:</strong>
+                {{ student.roll_no }}
+            </p>
+
+            <p>
+                <strong>Name:</strong>
+                {{ student.name }}
+            </p>
+
+            <p>
+                <strong>Email:</strong>
+                {{ student.email }}
+            </p>
+
+            <p>
+                <strong>Phone:</strong>
+                {{ student.phone or 'Not Available' }}
+            </p>
+
+            <p>
+                <strong>Course:</strong>
+                {{ student.course or 'Not Available' }}
+            </p>
+
+            <p>
+                <strong>Semester:</strong>
+                {{ student.semester or 'Not Available' }}
+            </p>
+
+            <p>
+                <strong>Section:</strong>
+                {{ student.section or 'Not Available' }}
+            </p>
+
+        </div>
+
+        <!-- Dashboard Cards -->
+
+        <div class="cards">
+
+            <div class="card">
+    <h3>My Attendance</h3>
+    <p>{{ attendance_count }} attendance records</p>
+    <a href="{{ url_for('student_portal.attendance') }}">
+        View Attendance
+    </a>
+</div>
+
+            <div class="card">
+    <h3>My Marks</h3>
+    <p>{{ marks_count }} examination records</p>
+    <a href="{{ url_for('student_portal.marks') }}">
+        View Marks
+    </a>
+</div>
+
+            <div class="card">
+                <h3>Assignments</h3>
+                <p>Check your assignments</p>
+                <a href="{{ url_for('student_portal.assignments') }}">View Assignments</a>
+            </div>
+
+            <div class="card">
+    <h3>Timetable</h3>
+    <p>Check your class schedule</p>
+    <a href="{{ url_for('student_portal.timetable') }}">
+        View Timetable
+    </a>
+</div>
+            <div class="card">
+    <h3>Notices</h3>
+    <p>Read college announcements</p>
+    <a href="{{ url_for('student_portal.notices') }}">
+        View Notices
+    </a>
+</div>
+
+        </div>
+
+    </div>
+
+    <footer>
+        Departmental ERP Management System
+    </footer>
+
+</body>
+</html>

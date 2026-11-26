@@ -1,0 +1,272 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard | Departmental ERP</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f3f6fc;
+            color: #26344a;
+        }
+
+        .navbar {
+            background: linear-gradient(120deg, #142d65, #2563eb);
+            color: white;
+            padding: 20px 35px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .navbar h2 {
+            margin: 0;
+        }
+
+        .navbar p {
+            margin: 5px 0 0;
+            font-size: 13px;
+            color: #dbeafe;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            background: #dc3545;
+            padding: 11px 20px;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 1250px;
+            margin: auto;
+            padding: 35px 25px;
+        }
+
+        .welcome {
+            background: white;
+            padding: 28px;
+            border-radius: 12px;
+            border-left: 5px solid #2563eb;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.05);
+        }
+
+        .welcome h1 {
+            color: #1e3a8a;
+            margin-top: 0;
+        }
+
+        .welcome p {
+            color: #64748b;
+            margin-bottom: 0;
+        }
+
+        .section-title {
+            margin-top: 35px;
+            color: #1e3a8a;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 22px;
+            margin-top: 22px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+            border-top: 4px solid #2563eb;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.10);
+        }
+
+        .card h3 {
+            color: #1e3a8a;
+            margin-top: 0;
+        }
+
+        .card p {
+            color: #64748b;
+            min-height: 40px;
+            line-height: 1.5;
+        }
+
+        .card a {
+            display: inline-block;
+            margin-top: 10px;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            padding: 10px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .card a:hover {
+            background: #1e40af;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 22px;
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        @media(max-width: 600px) {
+            .navbar {
+                padding: 18px;
+            }
+
+            .container {
+                padding: 20px 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="navbar">
+        <div>
+            <h2>Departmental ERP</h2>
+            <p>Administrator Control Panel</p>
+        </div>
+
+        <a href="{{ url_for('auth.logout') }}">Logout</a>
+    </div>
+
+    <div class="container">
+
+        <div class="welcome">
+            <h1>Welcome, Administrator!</h1>
+            <p>
+                Manage students, faculty, academics and departmental
+                activities from one centralized dashboard.
+            </p>
+        </div>
+
+<h2 class="section-title">ERP Overview</h2>
+
+<div class="cards">
+
+    <div class="card">
+        <h3>Total Students</h3>
+        <h1>{{ total_students }}</h1>
+    </div>
+
+    <div class="card">
+        <h3>Total Faculty</h3>
+        <h1>{{ total_faculty }}</h1>
+    </div>
+
+    <div class="card">
+        <h3>Total Departments</h3>
+        <h1>{{ total_departments }}</h1>
+    </div>
+
+    <div class="card">
+        <h3>Total Subjects</h3>
+        <h1>{{ total_subjects }}</h1>
+    </div>
+
+    <div class="card">
+        <h3>Total Assignments</h3>
+        <h1>{{ total_assignments }}</h1>
+    </div>
+
+    <div class="card">
+        <h3>Total Notices</h3>
+        <h1>{{ total_notices }}</h1>
+    </div>
+
+</div>
+
+        <h2 class="section-title">Management Modules</h2>
+
+        <div class="cards">
+
+            <div class="card">
+                <h3>Students</h3>
+                <p>Manage student profiles and academic records.</p>
+                <a href="{{ url_for('students.view_students') }}">Manage Students →</a>
+            </div>
+
+            <div class="card">
+                <h3>Faculty</h3>
+                <p>Maintain faculty information and profiles.</p>
+                <a href="{{ url_for('faculty.view_faculty') }}">Manage Faculty →</a>
+            </div>
+
+            <div class="card">
+                <h3>Departments</h3>
+                <p>Manage departmental information.</p>
+                <a href="{{ url_for('department.view_departments') }}">Manage Departments →</a>
+            </div>
+
+            <div class="card">
+                <h3>Subjects</h3>
+                <p>Manage subjects, courses and semesters.</p>
+                <a href="{{ url_for('subjects.view_subjects') }}">Manage Subjects →</a>
+            </div>
+
+            <div class="card">
+                <h3>Attendance</h3>
+                <p>Maintain and monitor student attendance.</p>
+                <a href="{{ url_for('attendance.view_attendance') }}">Manage Attendance →</a>
+            </div>
+
+            <div class="card">
+                <h3>Examinations & Marks</h3>
+                <p>Manage examination and student marks records.</p>
+                <a href="{{ url_for('marks.view_marks') }}">Manage Marks →</a>
+            </div>
+
+            <div class="card">
+                <h3>Assignments</h3>
+                <p>Create and manage academic assignments.</p>
+                <a href="{{ url_for('assignments.view_assignments') }}">Manage Assignments →</a>
+            </div>
+
+            <div class="card">
+                <h3>Notices</h3>
+                <p>Publish important college announcements.</p>
+                <a href="{{ url_for('notices.view_notices') }}">Manage Notices →</a>
+            </div>
+
+            <div class="card">
+                <h3>Timetable</h3>
+                <p>Manage class schedules and faculty timetables.</p>
+                <a href="{{ url_for('timetable.view_timetable') }}">Manage Timetable →</a>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="footer">
+        Departmental ERP Management System | Admin Panel
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,120 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Marks | Departmental ERP</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f2f5fa;
+            color: #333;
+        }
+
+        .navbar {
+            background: #1f3c88;
+            color: white;
+            padding: 20px 35px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 35px auto;
+            padding: 25px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+        }
+
+        h2 {
+            color: #1f3c88;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 25px;
+        }
+
+        th, td {
+            padding: 13px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background: #1f3c88;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background: #f2f5fa;
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 11px 18px;
+            background: #1f3c88;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="navbar">
+        <h2>Departmental ERP - Student Portal</h2>
+    </div>
+
+    <div class="container">
+
+        <h2>My Examination Marks</h2>
+
+        <p><b>Student Name:</b> {{ student.name }}</p>
+        <p><b>Student ID:</b> {{ student.student_id }}</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Exam Name</th>
+                    <th>Subject ID</th>
+                    <th>Assignment</th>
+                    <th>Internal</th>
+                    <th>Practical</th>
+                    <th>Total Marks</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for mark in marks_records %}
+                <tr>
+                    <td>{{ mark.exam_name or "-" }}</td>
+                    <td>{{ mark.subject_id }}</td>
+                    <td>{{ mark.assignment_marks if mark.assignment_marks is not none else "-" }}</td>
+                    <td>{{ mark.internal_marks if mark.internal_marks is not none else "-" }}</td>
+                    <td>{{ mark.practical_marks if mark.practical_marks is not none else "-" }}</td>
+                    <td>{{ mark.total_marks if mark.total_marks is not none else "-" }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="6">No marks records available.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <a class="back" href="{{ url_for('student_portal.dashboard') }}">
+            Back to Dashboard
+        </a>
+
+    </div>
+
+</body>
+</html>

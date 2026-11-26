@@ -1,0 +1,60 @@
+
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Notice Management</h2>
+
+<a href="{{ url_for('notices.add_notice') }}">
+    <button type="button">Publish New Notice</button>
+</a>
+
+<br><br>
+
+<table border="1" cellpadding="10" cellspacing="0">
+
+<tr>
+    <th>ID</th>
+    <th>Title</th>
+    <th>Description</th>
+    <th>Category</th>
+    <th>Publish Date</th>
+    <th>Expiry Date</th>
+    <th>Actions</th>
+</tr>
+
+{% for n in records %}
+<tr>
+    <td>{{ n.id }}</td>
+    <td>{{ n.title }}</td>
+    <td>{{ n.description }}</td>
+    <td>{{ n.category }}</td>
+    <td>{{ n.publish_date }}</td>
+    <td>{{ n.expiry_date or 'No expiry' }}</td>
+
+    <td>
+        <a href="{{ url_for('notices.edit_notice', id=n.id) }}">
+            Edit
+        </a>
+
+        |
+
+        <form method="POST"
+              action="{{ url_for('notices.delete_notice', id=n.id) }}"
+              style="display:inline;"
+              onsubmit="return confirm('Delete this notice?');">
+
+            <button type="submit">Delete</button>
+
+        </form>
+    </td>
+</tr>
+
+{% else %}
+<tr>
+    <td colspan="7">No notices available.</td>
+</tr>
+{% endfor %}
+
+</table>
+
+{% endblock %}

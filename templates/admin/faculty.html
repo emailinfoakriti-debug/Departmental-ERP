@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Faculty Management</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f2f4f8;
+            padding: 30px;
+        }
+
+        table {
+            width: 100%;
+            background: white;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background: #2563eb;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Faculty Management</h2>
+
+    <a href="{{ url_for('faculty.add_faculty') }}">
+        + Add New Faculty
+    </a>
+
+    <br><br>
+
+    {% with messages = get_flashed_messages() %}
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    {% endwith %}
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Faculty ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Department</th>
+            <th>Designation</th>
+            <th>Qualification</th>
+            <th>Actions</th>
+        </tr>
+
+        {% for f in faculty_list %}
+        <tr>
+            <td>{{ f.id }}</td>
+            <td>{{ f.faculty_id }}</td>
+            <td>{{ f.name }}</td>
+            <td>{{ f.email }}</td>
+            <td>{{ f.phone }}</td>
+            <td>{{ f.department }}</td>
+            <td>{{ f.designation }}</td>
+            <td>{{ f.qualification }}</td>
+            <td>
+    <a href="{{ url_for('faculty.edit_faculty', id=f.id) }}">
+        Edit
+    </a>
+
+    <form method="POST"
+          action="{{ url_for('faculty.delete_faculty', id=f.id) }}"
+          onsubmit="return confirm('Delete this faculty member?');"
+          style="display:inline;">
+
+        <button type="submit">Delete</button>
+    </form>
+</td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="8">No faculty added yet.</td>
+        </tr>
+        {% endfor %}
+
+    </table>
+
+    <br>
+    <a href="{{ url_for('admin.dashboard') }}">Back to Dashboard</a>
+
+</body>
+</html>
